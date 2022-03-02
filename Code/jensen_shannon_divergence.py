@@ -14,4 +14,4 @@ b = np.array([[1, 2, 3, 4],
 print(distance.jensenshannon(a, b, axis=0))
 #print(distance.jensenshannon(a, b, axis=1))
 #then maybe a for loop
-#we need to use Panda to map the features with the IPs
+#we need to use Panda to map the features with the IPs 
