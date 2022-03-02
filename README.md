@@ -9,4 +9,4 @@ Installing:
 You can clone this repository:
 
 * git clone https://github.com/BashayerAlharbi1/IP-Similar-IP
-* cd IP-Similar-IP 
+* cd IP-Similar-IP
