@@ -1,7 +1,7 @@
 import pandas as pd
 
 data_features = pd.read_csv('features.features') #featuer file
-data_raw = pd.read_csv('ft-v05.2021-03-13.060001-0700.csv') #Raw data #depends on Netflow data
+data_raw = pd.read_csv('ft-v05.2021-03-13.060001-0700.csv') #Raw data #depends on Netflow file
 
 data_features.insert(0,'S_IP', data_raw.loc[:,'srcaddr'])
 data_features.insert(1,'D_IP', data_raw.loc[:,'dstaddr'])
