@@ -13,6 +13,6 @@ data_features.to_csv('/home/baal7013/CNA/mapped_features')
 #Note: we dont not need the first three columns when clustering becuase:
 #columns 0 has zeros
 #columns 1 has source Ips
-#columns 1 has dest Ips
+#columns 2 has dest Ips
 
 
