@@ -25,6 +25,26 @@ print(len(data_df_scaled))
 data_df_scaled.drop(columns=data_df_scaled.columns[0],axis=1,inplace=True)
 
 #---------------------------------------------------------------------------------------------------------#
+################################### Selecting the Optimal Number of k ####################################
+#---------------------------------------------------------------------------------------------------------#
+#The elbow method to select the optimal number of k:
+wcss=[]
+for i in range(1,10): #tries to cluster the data using different value of k, starting from k=1 to k=10.
+    kmeans = KMeans(n_clusters =i, init='k-means++')
+    kmeans.fit(data_df_scaled)
+    wcss_iter = kmeans.inertia_
+    wcss.append(wcss_iter)
+number_clusters = range(1,10)
+plt.figure(figsize=(10, 5))
+plt.plot(number_clusters,wcss)
+plt.title('The Elbow Method')
+plt.xlabel('Number of clusters')
+plt.ylabel('WCSS')
+plt.savefig('Elbow.png') # to show the plot 
+#plt.show() # this function did not work with me, thus i needed to save the plot as an image
+plt.clf() # to clear the current figure
+
+#---------------------------------------------------------------------------------------------------------#
 ############################################# Kmeans Cluster ##############################################
 #---------------------------------------------------------------------------------------------------------#
 #Clustering: Determines how many clusters are used
