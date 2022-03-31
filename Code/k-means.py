@@ -1,18 +1,18 @@
 #---------------------------------------------------------------------------------------------------------#
 ############################################### Libraries ################################################
 #---------------------------------------------------------------------------------------------------------#
-import numpy as np
+import numpy as np #do we need this? -BA
 import pandas as pd
-import statsmodels.api as sm
+#import statsmodels.api as sm
 import matplotlib.pyplot as plt
-import seaborn as sns
-sns.set()
+import seaborn as sns #do we need this? -BA
+sns.set() #???
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn import preprocessing
-from sklearn.preprocessing import label_binarize
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+#from sklearn.preprocessing import label_binarize
+#from sklearn.model_selection import train_test_split
+#from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 import shap
 
@@ -20,7 +20,7 @@ import shap
 #################################### Preparing the Data for Analysis ######################################
 #---------------------------------------------------------------------------------------------------------#
 data = pd.read_csv('features03_26') #featuer file
-print(data.shape[0])
+print(data.shape[0]) #should we delete some of the printing?
 
 #Normalizing the data
 data_value = data.copy()
