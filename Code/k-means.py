@@ -146,7 +146,6 @@ def main():
     try:
         
         featuers_data = pd.read_csv(FLAGS.FeaturesFile)
-        print(featuers_data)
         raw_data = pd.read_csv(FLAGS.RawDatafile) #Raw data #depends on Netflow file
         clusteredData = dataNormalization(featuers_data) #Returned dataframe to be used in SHAPexplainer() and mappingIPs()
 
