@@ -77,11 +77,6 @@ def clustering(data_df_scaled):
     sns.scatterplot(x="pca1", y="pca2", hue=['Centroid0','Centroid1','Centroid2','Centroid3', 'Centroid4', 'Centroid5'], data=results)
     plt.savefig('pca_centroids.png')
     plt.clf()
-
-    #another way to plot the centroids w/o using pca
-    #plt.scatter(centroids['DpktsSA'], centroids['DpktsDA'], marker="x", color='r')
-    #plt.legend()
-    #plt.savefig('centroids.png')
     
     return data_with_clusters 
 
