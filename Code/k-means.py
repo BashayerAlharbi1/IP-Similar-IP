@@ -121,7 +121,18 @@ def SHAPexplainer(data_with_clusters):
     plt.show()
 
 def main():
-
+    
+    """
+    Example of the extracted features data file and the columns names:
+    lable,DpktsSA,DpktsSV,DoctetsSA,DoctetsSV,DpktsDA,DpktsDV,DoctetsDA,DoctetsDV,AveTimeV,AveTimeA
+    0,57,0,38995,0,57,0,38995,0,0,0
+    
+    Example of the NetFlow V5 raw data file and the columns names:
+    unix_secs,unix_nsecs,sysuptime,exaddr,dpkts,doctets,first,last,engine_type,engine_id,srcaddr,dstaddr,nexthop,input,output,srcport,
+    dstport,prot,tos,tcp_flags,src_mask,dst_mask,src_as,dst_as
+    1717740401,307097000,3999799000,111.111.11.111,77,44997,3999714734,3999777947,1,3,333.33.333.33,44.444.44.44,0.0.0.0,3407,3407,774,
+    77909,7,0,34,0,0,0,0
+    """    
     #Process command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--FeaturesFile', type=str, required=True,
@@ -149,4 +160,6 @@ def main():
         SHAPexplainer(clusteredData) #To explain which features contribute more to the clustering process using Shapley values
         
 main()  
+
+
 
