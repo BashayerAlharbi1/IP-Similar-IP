@@ -44,8 +44,7 @@ def clustering(data_df_scaled):
     plt.title('The Elbow Method')
     plt.xlabel('Number of clusters')
     plt.ylabel('WCSS')
-    plt.savefig('Elbow.png') # to show the plot 
-    plt.show() 
+    plt.savefig('Elbow.png') # to show the plot  
     plt.clf() #To clear the current figure
 
     ######################## Kmeans Cluster #######################
@@ -118,7 +117,8 @@ def SHAPexplainer(data_with_clusters):
     #Generating the summary plot
     shap_values = explainer.shap_values(x) #applying the explainer on the test_x to check what features have more impact
     shap.summary_plot(shap_values, x) #present a summary plot of all of the features ordered based on importance
-    plt.show()
+    plt.savefig('SHAP.png')
+    plt.clf()
 
 def main():
     
@@ -141,11 +141,12 @@ def main():
                         help="The csv raw data file")
     parser.add_argument('--SHAP', action='store_true',
                         help="This option to explain the clustered data; it is optional")
-    wFLAGS = parser.parse_args()
-    
+    FLAGS = parser.parse_args()
+    #clusteredData = []    
     try:
         
         featuers_data = pd.read_csv(FLAGS.FeaturesFile)
+        print(featuers_data)
         raw_data = pd.read_csv(FLAGS.RawDatafile) #Raw data #depends on Netflow file
         clusteredData = dataNormalization(featuers_data) #Returned dataframe to be used in SHAPexplainer() and mappingIPs()
 
@@ -160,6 +161,4 @@ def main():
         SHAPexplainer(clusteredData) #To explain which features contribute more to the clustering process using Shapley values
         
 main()  
-
-
 
