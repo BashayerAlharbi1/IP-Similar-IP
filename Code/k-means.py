@@ -115,8 +115,8 @@ def SHAPexplainer(data_with_clusters):
     explainer = shap.TreeExplainer(clf)
     shap_values = [] #To store the Shapley values
 
-    #Generating the summaty plot
-    shap_values = explainer.shap_values(x) #applying the explainer on the test_x to check what featuer have more impact
+    #Generating the summary plot
+    shap_values = explainer.shap_values(x) #applying the explainer on the test_x to check what features have more impact
     shap.summary_plot(shap_values, x) #present a summary plot of all of the features ordered based on importance
     plt.show()
 
@@ -124,10 +124,10 @@ def main():
     
     """
     Example of the extracted features data file and the columns names:
-    lable,DpktsSA,DpktsSV,DoctetsSA,DoctetsSV,DpktsDA,DpktsDV,DoctetsDA,DoctetsDV,AveTimeV,AveTimeA
+    label,DpktsSA,DpktsSV,DoctetsSA,DoctetsSV,DpktsDA,DpktsDV,DoctetsDA,DoctetsDV,AveTimeV,AveTimeA
     0,57,0,38995,0,57,0,38995,0,0,0
     
-    Example of the NetFlow V5 raw data file and the columns names:
+    Example of the NetFlow V5 raw data file and the column names:
     unix_secs,unix_nsecs,sysuptime,exaddr,dpkts,doctets,first,last,engine_type,engine_id,srcaddr,dstaddr,
     nexthop,input,output,srcport, dstport,prot,tos,tcp_flags,src_mask,dst_mask,src_as,dst_as
     1717740401,307097000,3999799000,111.111.11.111,77,44997,3999714734,3999777947,1,3,333.33.333.33,44.444.44.44,
