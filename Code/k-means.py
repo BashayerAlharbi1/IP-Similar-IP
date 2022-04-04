@@ -98,12 +98,12 @@ def mappingIPs(raw_data, data_with_clusters):
 def SHAPexplainer(data_with_clusters):
 
     """
-        We used the cluserts' numbers as lables for our dataset
+        We used the cluster numbers as labels for our dataset
     """  
     y = data_with_clusters.loc[:,['Clusters']] #labels
     x = data_with_clusters.loc[:, ['DpktsSA','DpktsSV','DoctetsSA','DoctetsSV',
                                    'DpktsDA','DpktsDV','DoctetsDA','DoctetsDV',
-                                   'AveTimeV','AveTimeA']] #the rest of the data without the lables
+                                   'AveTimeV','AveTimeA']] #the rest of the data without the labels
     clf = RandomForestClassifier()
     clf.fit(x, y)
     explainer = shap.TreeExplainer(clf)
@@ -118,7 +118,7 @@ def SHAPexplainer(data_with_clusters):
 def main():
     
     """
-    Example of the extracted features data file and the columns names:
+    Example of the extracted features data file and the column names:
     label,DpktsSA,DpktsSV,DoctetsSA,DoctetsSV,DpktsDA,DpktsDV,DoctetsDA,DoctetsDV,AveTimeV,AveTimeA
     0,57,0,38995,0,57,0,38995,0,0,0
     
@@ -140,16 +140,16 @@ def main():
     #clusteredData = []    
     try:
         
-        featuers_data = pd.read_csv(FLAGS.FeaturesFile)
+        features_data = pd.read_csv(FLAGS.FeaturesFile)
         raw_data = pd.read_csv(FLAGS.RawDatafile) #Raw data #depends on Netflow file
-        clusteredData = dataNormalization(featuers_data) #Returned dataframe to be used in SHAPexplainer() and mappingIPs()
+        clusteredData = dataNormalization(features_data) #Returned dataframe to be used in SHAPexplainer() and mappingIPs()
 
         mappingIPs(raw_data, clusteredData) #To map the extracted features with the the IPs from the raw data before extraction
         
     except FileNotFoundError:
         print("File Doesn't exist.")
     except:
-        print("There was an error with on of the files.")
+        print("There was an error with one of the files.")
 
     if FLAGS.SHAP: #If SHAP option is selcted
         SHAPexplainer(clusteredData) #To explain which features contribute more to the clustering process using Shapley values
