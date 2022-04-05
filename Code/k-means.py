@@ -9,6 +9,7 @@ from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
 import shap
 import argparse
+import sys
 
 #---------------------------------------------------------------------------------------------------------#
 #################################### Preparing the Data for Analysis ######################################
@@ -144,17 +145,21 @@ def main():
     FLAGS = parser.parse_args()
   
     try:
-        
         features_data = pd.read_csv(FLAGS.FeaturesFile)
-        raw_data = pd.read_csv(FLAGS.RawDatafile) #Raw data #depends on Netflow file
-        clusteredData = dataNormalization(features_data) #Returned dataframe to be used in SHAPexplainer() and mappingIPs()
-
-        mappingIPs(raw_data, clusteredData) #To map the extracted features with the the IPs from the raw data before extraction
-        
     except FileNotFoundError:
-        print("File Doesn't exist.")
-    except:
-        print("There was an error with one of the files.")
+           print(f"File {FLAGS.FeaturesFile} not found.  Aborting")
+           sys.exit(1)
+        
+    try:
+        raw_data = pd.read_csv(FLAGS.RawDatafile) #Raw data #depends on Netflow file
+    except FileNotFoundError:
+           print(f"File {FLAGS.RawDatafile} not found.  Aborting")
+           sys.exit(1)
+        
+    clusteredData = dataNormalization(features_data) #Returned dataframe to be used in SHAPexplainer() and mappingIPs()
+    mappingIPs(raw_data, clusteredData) #To map the extracted features with the the IPs from the raw data before extraction
+        
+    
 
     if FLAGS.SHAP: #If SHAP option is selcted
         SHAPexplainer(clusteredData) #To explain which features contribute more to the clustering process using Shapley values
