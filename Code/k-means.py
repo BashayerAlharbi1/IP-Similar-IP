@@ -58,6 +58,7 @@ def clustering(data_df_scaled):
     data_with_clusters['Clusters'] = identified_clusters
     frame = pd.DataFrame(data_with_clusters)
     #prints the size of each cluster  
+    print("################################# Clusters' Size #################################")
     print (frame['Clusters'].value_counts()) 
 
     ############## Principal component analysis (PCA) #############
@@ -88,8 +89,12 @@ def mappingIPs(raw_data, data_with_clusters):
     #add the IP addresses along with features and clusters
     data_with_clusters.insert(0,'S_IP', raw_data.loc[:,'srcaddr']) #first column is zeros
     data_with_clusters.insert(1,'D_IP', raw_data.loc[:,'dstaddr'])
-    print(data_with_clusters.loc[data_with_clusters['Clusters'] == 1]) #print all the data entries that belongs to cluster 1
-    print(data_with_clusters.loc[data_with_clusters['Clusters'] == 0]) #print all the data entries that belongs to cluster 0
+    print("############################## IPs within cluster 3 ##############################")
+    cluster_3 = data_with_clusters[data_with_clusters['Clusters'] == 3]
+    print(cluster_3[['S_IP', 'D_IP']]) #print all IPs that belongs to cluster 3
+    cluster_4 = data_with_clusters[data_with_clusters['Clusters'] == 4]
+    print("############################## IPs within cluster 4 ##############################")
+    print(cluster_4[['S_IP', 'D_IP']]) #print all IPs that belongs to cluster 4
     data_with_clusters.to_csv('Final_Mapped_Features') #this file contains the IP addresses along with their classes (e.g, class 0 or class 1)
     
 #---------------------------------------------------------------------------------------------------------#
@@ -105,14 +110,14 @@ def SHAPexplainer(data_with_clusters):
                                    'DpktsDA','DpktsDV','DoctetsDA','DoctetsDV',
                                    'AveTimeV','AveTimeA']] #the rest of the data without the labels
     clf = RandomForestClassifier()
-    clf.fit(x, y)
+    clf.fit(x, y.values.ravel())
     explainer = shap.TreeExplainer(clf)
     shap_values = [] #To store the Shapley values
 
     #Generating the summary plot
     shap_values = explainer.shap_values(x) #applying the explainer on the test_x to check what features have more impact
     shap.summary_plot(shap_values, x) #present a summary plot of all of the features ordered based on importance
-    plt.savefig('SHAP.png')
+    plt.savefig('SHAP.png',bbox_inches='tight')
     plt.clf()
 
 def main():
@@ -137,7 +142,7 @@ def main():
     parser.add_argument('--SHAP', action='store_true',
                         help="This option to explain the clustered data; it is optional")
     FLAGS = parser.parse_args()
-    #clusteredData = []    
+  
     try:
         
         features_data = pd.read_csv(FLAGS.FeaturesFile)
